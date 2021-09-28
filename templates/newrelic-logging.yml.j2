@@ -3,9 +3,9 @@ logs:
   {%- for log in nrinfragent_logging %}
   - name: {{ log.name -}}
   {% if log.source_type == 'file' %}
-    file: {{ log.source_value }}
+    file: {{ log.source_value -}}
   {% elif log.source_type == 'systemd' %}
-    systemd: {{ log.source_value }}
+    systemd: {{ log.source_value -}}
   {% elif log.source_type == 'syslog' and log.syslog is defined %}
     syslog:
       uri: {{ log.syslog.uri }}
@@ -46,12 +46,12 @@ logs:
   {%- for key, value in dict_item.items() %}
       {{ key }}: {{ value }}
   {%- endfor -%}
-  {% endfor -%}
+  {%- endfor -%}
   {% endif -%}
   {% if log.fluentbit is defined %}
     fluentbit:
       config_file: {{ log.fluentbit.config_file }}
-      parsers_file: {{ log.fluentbit.parsers_file }}
+      parsers_file: {{ log.fluentbit.parsers_file -}}
   {% endif %}
   {% endfor -%}
 {% endif -%}
