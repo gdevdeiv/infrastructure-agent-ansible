@@ -1,4 +1,11 @@
 ---
+- name: Create logging.d config directory
+  file: path=/etc/newrelic-infra/logging.d state=directory mode=0755
+  when:
+    - nrinfragent_logging is defined
+    - nrinfragent_state != "absent"
+    - nrinfragent_os_name != 'windows'
+
 - name: Setup logging
   template:
     src: newrelic-logging.yml.j2
